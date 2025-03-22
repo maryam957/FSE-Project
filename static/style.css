@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
 body {
 	font-family: Arial, sans-serif;
 	text-align: center;
@@ -7,8 +9,19 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin: 0;
+	position: relative;
 }
 
+/* Logo Styling */
+.logo {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 100px; /* Adjust size as needed */
+	height: auto;
+}
+
+/* Form Styling */
 form {
 	background: white;
 	padding: 30px;
@@ -18,20 +31,28 @@ form {
 	text-align: center;
 }
 
-/* Removed the h2 (Login text) */
+/* Fancy Heading */
+h1 {
+	font-family: 'Dancing Script', cursive;
+	font-size: 36px;
+	color: #3a2318;
+	margin-bottom: 15px;
+}
 
+/* Input Fields */
 input {
 	display: block;
 	margin: 15px auto;
 	padding: 12px;
 	width: 90%;
-	border: 1px solid #3a2318; /* Brown border */
+	border: 1px solid #3a2318;
 	border-radius: 5px;
 	font-size: 16px;
 }
 
+/* Buttons */
 button {
-	background: #3a2318; /* Brown button */
+	background: #3a2318;
 	color: white;
 	border: none;
 	padding: 12px;
@@ -43,18 +64,19 @@ button {
 }
 
 	button:hover {
-		background: #26150f; /* Darker brown on hover */
+		background: #26150f;
 	}
+
 .buttons {
 	display: flex;
 	flex-direction: column;
-	gap: 10px; /* Adds space between buttons */
+	gap: 10px;
 }
 
 .secondary-btn {
-	background: #6d4c41; /* Lighter brown for secondary button */
+	background: #6d4c41;
 }
 
 	.secondary-btn:hover {
-		background: #5d3c31; /* Darker shade on hover */
+		background: #5d3c31;
 	}

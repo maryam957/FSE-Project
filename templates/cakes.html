@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <!-- Logo on the Left -->
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/dulcelogo.png') }}" alt="Dulce Cake Shop" width="55" height="56">
+            </div>
+
+            <!-- Navigation in the Center -->
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </nav>
+
+            <!-- Icons on the Right -->
+            <div class="icons">
+                <a href="#"><img src="{{ url_for('static', filename='images/user-icon.png') }}" alt="User" width="25" height="25"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/cart-icon.png') }}" alt="Cart" width="25" height="25"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/search-icon.png') }}" alt="Search" width="25" height="25"></a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Cakes Display Section -->
+    <div class="cakes-container">
+        {% for cake in cakes %}
+        <div class="cake-card">
+            <img src="{{ url_for('static', filename='images/' + cake.image) }}" alt="{{ cake.name }}">
+            <h3>{{ cake.name }}</h3>
+            <p>${{ "{:.2f}".format(cake.price) }}</p>
+            <div class="quantity">
+                <button>-</button>
+                <span>0</span>
+                <button>+</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

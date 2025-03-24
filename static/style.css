@@ -3,75 +3,162 @@
 body {
 	font-family: Arial, sans-serif;
 	text-align: center;
-	background: #f6ebcd; /* Beige background */
-	height: 100vh;
+	background: #f6ebcd;
+	margin: 0;
+	padding: 0;
+}
+/* LOGIN*/
+.login-container {
+	text-align: center;
+	max-width: 400px;
+	margin: 50px auto;
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+	.login-form input {
+		padding: 10px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+
+	.login-form button {
+		background-color: #5a3e2b;
+		color: white;
+		padding: 10px;
+		font-size: 18px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+		.login-form button:hover {
+			background-color: #3d281a;
+		}
+
+.register-link {
+	display: block;
+	margin-top: 10px;
+	color: blue;
+	text-decoration: none;
+}
+
+	.register-link:hover {
+		text-decoration: underline;
+	}
+.nav-container {
+	background-color: #f6ebcd; /* Beige color */
+	border: 1px solid black; /* Black outline */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 50px;
+}
+
+/* Adjust header navigation */
+.headerr {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-grow: 1;
+}
+
+/* Center Navigation */
+nav {
+	flex-grow: 1;
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	margin: 0;
-	position: relative;
 }
 
-/* Logo Styling */
-.logo {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	width: 100px; /* Adjust size as needed */
-	height: auto;
+	nav ul {
+		list-style: none;
+		display: flex;
+		gap: 20px;
+		padding: 0;
+	}
+
+		nav ul li {
+			display: inline;
+		}
+
+			nav ul li a {
+				text-decoration: none;
+				color: #8b4513;
+				font-size: 18px;
+				font-weight: bold;
+			}
+
+/* Align icons to the right */
+.icons {
+	display: flex;
+	gap: 15px;
 }
 
-/* Form Styling */
-form {
-	background: white;
-	padding: 30px;
-	border-radius: 10px;
-	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-	width: 350px;
-	text-align: center;
-}
 
-/* Fancy Heading */
-h1 {
-	font-family: 'Dancing Script', cursive;
-	font-size: 36px;
-	color: #3a2318;
-	margin-bottom: 15px;
-}
-
-/* Input Fields */
-input {
-	display: block;
-	margin: 15px auto;
-	padding: 12px;
-	width: 90%;
-	border: 1px solid #3a2318;
-	border-radius: 5px;
+.nav-icons {
+	display: flex;
+	gap: 10px;
 	font-size: 16px;
 }
 
-/* Buttons */
+/* Cake Grid */
+.cakes-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 20px;
+	padding: 30px;
+}
+
+.cake-card {
+	background: white;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+	text-align: center;
+}
+
+	.cake-card img {
+		width: 100%;
+		height: auto;
+		border-radius: 10px;
+	}
+
+.quantity {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-top: 10px;
+}
+
 button {
 	background: #3a2318;
 	color: white;
 	border: none;
-	padding: 12px;
-	width: 100%;
+	padding: 10px 15px;
 	cursor: pointer;
 	border-radius: 5px;
-	font-size: 18px;
-	transition: background 0.3s ease;
+	font-size: 16px;
+	transition: 0.3s;
 }
-
-	button:hover {
-		background: #26150f;
-	}
-
 .buttons {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 }
+
+	button:hover {
+		background: #26150f;
+	}
 
 .secondary-btn {
 	background: #6d4c41;

@@ -7,21 +7,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="login-container">
+        <!-- Logo at the top -->
+        <img src="{{ url_for('static', filename='images/dulcelogo.png') }}" alt="Dulce Cake Shop Logo" class="logo" width="55" height="56">
 
-    <!-- Logo at the top right -->
-    <img src="{{ url_for('static', filename='dulcelogo.jpg') }}" alt="Dulce Cake Shop Logo" class="logo">
-
-    <form>
         <h1>Welcome to Dulce Cake Shop</h1>
         <h2>Login</h2>
-        <input type="text" placeholder="Username">
-        <input type="password" placeholder="Password">
 
-        <div class="buttons">
+        <form action="/login" method="post" class="login-form">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
-            <button type="submit" class="secondary-btn">Create a new account</button>
-        </div>
-    </form>
+        </form>
 
+        <a href="/register" class="register-link">Create a new account</a>
+    </div>
 </body>
 </html>

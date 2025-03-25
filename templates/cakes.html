@@ -29,11 +29,9 @@
             <div class="icons">
                 <a href="#"><img src="{{ url_for('static', filename='images/user-icon.png') }}" alt="User" width="25" height="25"></a>
                 <a href="#"><img src="{{ url_for('static', filename='images/cart-icon.png') }}" alt="Cart" width="25" height="25"></a>
-                <a href="#"><img src="{{ url_for('static', filename='images/search-icon.png') }}" alt="Search" width="25" height="25"></a>
             </div>
         </div>
     </header>
-
 
     <!-- Cakes Display Section -->
     <div class="cakes-container">
@@ -42,10 +40,10 @@
             <img src="{{ url_for('static', filename='images/' + cake.image) }}" alt="{{ cake.name }}">
             <h3>{{ cake.name }}</h3>
             <p>${{ "{:.2f}".format(cake.price) }}</p>
-            <div class="quantity">
-                <button>-</button>
-                <span>0</span>
-                <button>+</button>
+            <div class="quantity-selector">
+                <button class="qty-btn">-</button>
+                <input type="text" value="0" class="qty-input" readonly>
+                <button class="qty-btn">+</button>
             </div>
         </div>
         {% endfor %}

@@ -1,20 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Register Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="login-container">
-        <!-- Logo at the top -->
-        <img src="{{ url_for('static', filename='images/dulcelogo.png') }}" alt="Dulce Cake Shop Logo" class="logo" width="55" height="56">
+        <h1 class="fancy-text">Create an Account</h1>
+        <h2>Register</h2>
 
-        <h1 class="fancy-text">Welcome to Dulce Cake Shop</h1>
-        <h2>Login</h2>
-
-        <form action="/login" method="post" class="login-form">
+        <form action="/register" method="post" class="login-form">
             <select name="role" required>
                 <option value="Admin">Admin</option>
                 <option value="Employee">Employee</option>
@@ -22,11 +19,11 @@
             </select>
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+            <button type="submit">Register</button>
         </form>
 
         <div class="register-box">
-            <a href="/register" class="register-link">Create a new account</a>
+            <a href="/login" class="register-link">Already have an account? Login</a>
         </div>
     </div>
 </body>

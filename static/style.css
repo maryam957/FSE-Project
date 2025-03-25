@@ -1,169 +1,154 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
 body {
-	font-family: Arial, sans-serif;
-	text-align: center;
-	background: #f6ebcd;
-	margin: 0;
-	padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f6ebcd;
+    margin: 0;
+    padding: 0;
 }
-/* LOGIN*/
+
+/* Fancy Font for Welcome Text */
+.fancy-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    color: #5a3e2b;
+}
+
+/* LOGIN */
 .login-container {
-	text-align: center;
-	max-width: 400px;
-	margin: 50px auto;
-	background: white;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.login-form {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+/* Dropdown Menu */
+.login-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-	.login-form input {
-		padding: 10px;
-		font-size: 16px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-	}
+/* Login Button */
+.login-form button {
+    background-color: #5a3e2b;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-	.login-form button {
-		background-color: #5a3e2b;
-		color: white;
-		padding: 10px;
-		font-size: 18px;
-		border: none;
-		border-radius: 5px;
-		cursor: pointer;
-	}
+    .login-form button:hover {
+        background-color: #3d281a;
+    }
 
-		.login-form button:hover {
-			background-color: #3d281a;
-		}
+/* Register Box */
+.register-box {
+    background: #5a3e2b;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
 
 .register-link {
-	display: block;
-	margin-top: 10px;
-	color: blue;
-	text-decoration: none;
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
 }
 
-	.register-link:hover {
-		text-decoration: underline;
-	}
+    .register-link:hover {
+        text-decoration: underline;
+    }
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background: #f6ebcd;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation Bar */
 .nav-container {
-	background-color: #f6ebcd; /* Beige color */
-	border: 1px solid black; /* Black outline */
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f4d7a4;
+    padding: 10px 20px;
 }
 
-/* Adjust header navigation */
-.headerr {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-grow: 1;
+/* Navigation Links */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
 }
 
-/* Center Navigation */
-nav {
-	flex-grow: 1;
-	display: flex;
-	justify-content: center;
-}
+    nav ul li {
+        display: inline;
+    }
 
-	nav ul {
-		list-style: none;
-		display: flex;
-		gap: 20px;
-		padding: 0;
-	}
+        nav ul li a {
+            text-decoration: none;
+            color: #5a3e2b;
+            font-weight: bold;
+        }
 
-		nav ul li {
-			display: inline;
-		}
-
-			nav ul li a {
-				text-decoration: none;
-				color: #8b4513;
-				font-size: 18px;
-				font-weight: bold;
-			}
-
-/* Align icons to the right */
-.icons {
-	display: flex;
-	gap: 15px;
-}
-
-
-.nav-icons {
-	display: flex;
-	gap: 10px;
-	font-size: 16px;
-}
-
-/* Cake Grid */
+/* Cake Cards Grid */
 .cakes-container {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	gap: 20px;
-	padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
 
+/* Individual Cake Card */
 .cake-card {
-	background: white;
-	padding: 15px;
-	border-radius: 10px;
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-	text-align: center;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 220px;
 }
 
-	.cake-card img {
-		width: 100%;
-		height: auto;
-		border-radius: 10px;
-	}
+    .cake-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
 
-.quantity {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
-	margin-top: 10px;
+/* Quantity Selector */
+.quantity-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
 }
 
-button {
-	background: #3a2318;
-	color: white;
-	border: none;
-	padding: 10px 15px;
-	cursor: pointer;
-	border-radius: 5px;
-	font-size: 16px;
-	transition: 0.3s;
-}
-.buttons {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+.qty-btn {
+    background: #5a3e2b;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
 }
 
-	button:hover {
-		background: #26150f;
-	}
-
-.secondary-btn {
-	background: #6d4c41;
+.qty-input {
+    width: 30px;
+    text-align: center;
+    border: none;
+    background: #f4d7a4;
 }
-
-	.secondary-btn:hover {
-		background: #5d3c31;
-	}

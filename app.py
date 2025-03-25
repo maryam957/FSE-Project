@@ -4,6 +4,8 @@ import os
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Change this in production
 
+PROFILE_FILE = "customer_credentials.txt"
+
 # Cakes Data
 cakes_list = [
     {"name": "Red Velvet Cake", "price": 12.99, "image": "redvelvet.jpg"},
@@ -34,6 +36,23 @@ def check_credentials(role, username, password):
             if saved_user == username and saved_pass == password:
                 return True
     return False
+
+def load_profile():
+    try:
+        with open(PROFILE_FILE, "r") as file:
+            data = file.readline().strip().split(",")
+            return {
+                "name": data[0],
+                "email": data[1] if len(data) > 1 else "",
+                "contact": data[2] if len(data) > 2 else "",
+                "address": data[3] if len(data) > 3 else ""
+            }
+    except FileNotFoundError:
+        return {"name": "", "email": "", "contact": "", "address": ""}
+
+def save_profile(profile):
+    with open(PROFILE_FILE, "w") as file:
+        file.write(f"{profile['name']},{profile['email']},{profile['contact']},{profile['address']}")
 
 @app.route("/")
 def home():
@@ -77,6 +96,19 @@ def cakes():
     if "username" not in session:
         return redirect(url_for("login"))
     return render_template("cakes.html", cakes=cakes_list)
+
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    if request.method == "POST":
+        updated_profile = {
+            "name": request.form["name"],
+            "email": request.form["email"],
+            "contact": request.form["contact"],
+            "address": request.form["address"]
+        }
+        save_profile(updated_profile)
+    profile_data = load_profile()
+    return render_template("profile.html", profile=profile_data)
 
 @app.route("/logout")
 def logout():

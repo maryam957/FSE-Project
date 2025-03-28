@@ -27,7 +27,9 @@
 
             <!-- Icons on the Right -->
             <div class="icons">
-                <a href="#"><img src="{{ url_for('static', filename='images/user-icon.png') }}" alt="User" width="25" height="25"></a>
+                <a href="{{ url_for('profile') }}">
+                    <img src="{{ url_for('static', filename='images/user-icon.png') }}" alt="User" width="25" height="25">
+                </a>
                 <a href="#"><img src="{{ url_for('static', filename='images/cart-icon.png') }}" alt="Cart" width="25" height="25"></a>
             </div>
         </div>

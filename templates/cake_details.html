@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ cake.name }} - Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <a href="{{ url_for('cakes') }}" class="back-link">&laquo; Go Back to Home Page</a>
+
+    <div class="cake-details-container">
+        <div class="cake-image">
+            <img src="{{ url_for('static', filename='images/' + cake.image) }}" alt="{{ cake.name }}">
+        </div>
+        <div class="cake-info">
+            <h1>{{ cake.name }}</h1>
+            <p>{{ cake.description }}</p>
+            <p class="cake-price">$ {{ "{:.2f}".format(cake.price) }}</p>
+
+            <label for="weight">Weight:</label>
+            <select id="weight">
+                <option>Select Weight</option>
+                <option>500g</option>
+                <option>1kg</option>
+                <option>2kg</option>
+            </select>
+
+            <label for="toppings">Customize your cake:</label>
+            <select id="toppings">
+                <option>Toppings</option>
+                <option>Chocolate Chips</option>
+                <option>Fruits</option>
+                <option>Sprinkles</option>
+            </select>
+
+            <input type="text" placeholder="Add custom message" class="custom-message">
+
+            <div class="quantity-selector">
+                <button class="qty-btn">-</button>
+                <input type="text" value="1" class="qty-input" readonly>
+                <button class="qty-btn">+</button>
+            </div>
+
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+</body>
+</html>

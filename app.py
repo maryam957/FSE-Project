@@ -116,5 +116,13 @@ def logout():
     session.pop("role", None)
     return redirect(url_for("login"))
 
+@app.route("/cake/<cake_name>")
+def cake_details(cake_name):
+    cake = next((c for c in cakes_list if c["name"] == cake_name.replace("-", " ")), None)
+    if not cake:
+        return "Cake not found", 404
+    cake["description"] = "Our delicious " + cake["name"].lower() + " is made with the finest ingredients, perfect for any occasion!"
+    return render_template("cake_details.html", cake=cake)
+
 if __name__ == "__main__":
     app.run(debug=True)

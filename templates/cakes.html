@@ -37,10 +37,17 @@
 
     <!-- Cakes Display Section -->
     <div class="cakes-container">
+        <!-- Cakes Display Section -->
         {% for cake in cakes %}
         <div class="cake-card">
-            <img src="{{ url_for('static', filename='images/' + cake.image) }}" alt="{{ cake.name }}">
-            <h3>{{ cake.name }}</h3>
+            <a href="{{ url_for('cake_details', cake_name=cake.name.replace(' ', '-')) }}">
+                <img src="{{ url_for('static', filename='images/' + cake.image) }}" alt="{{ cake.name }}">
+            </a>
+            <h3>
+                <a href="{{ url_for('cake_details', cake_name=cake.name.replace(' ', '-')) }}">
+                    {{ cake.name }}
+                </a>
+            </h3>
             <p>${{ "{:.2f}".format(cake.price) }}</p>
             <div class="quantity-selector">
                 <button class="qty-btn">-</button>
@@ -52,3 +59,4 @@
     </div>
 </body>
 </html>
+

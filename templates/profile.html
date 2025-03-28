@@ -57,31 +57,46 @@
         .btn:hover {
             background-color: #4a2c1a;
         }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h2>Customer Profile</h2>
+        
+        {% if message %}
+            <p class="{{ 'success-message' if 'updated' in message else 'error-message' }}">{{ message }}</p>
+        {% endif %}
+
         <form action="/profile" method="POST">
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="{{ profile.name }}" required>
+                <input type="text" id="name" name="name" value="{{ profile.get('name', '') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="{{ profile.email }}" required>
+                <input type="email" id="email" name="email" value="{{ profile.get('email', '') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="contact">Contact:</label>
-                <input type="text" id="contact" name="contact" value="{{ profile.contact }}" required>
+                <input type="text" id="contact" name="contact" value="{{ profile.get('contact', '') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="address">Address:</label>
-                <input type="text" id="address" name="address" value="{{ profile.address }}" required>
+                <input type="text" id="address" name="address" value="{{ profile.get('address', '') }}" required>
             </div>
 
             <button type="submit" class="btn">Update Profile</button>

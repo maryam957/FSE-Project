@@ -37,22 +37,48 @@ def check_credentials(role, username, password):
                 return True
     return False
 
-def load_profile():
+
+def load_profile(username):
     try:
         with open(PROFILE_FILE, "r") as file:
-            data = file.readline().strip().split(",")
-            return {
-                "name": data[0],
-                "email": data[1] if len(data) > 1 else "",
-                "contact": data[2] if len(data) > 2 else "",
-                "address": data[3] if len(data) > 3 else ""
-            }
+            for line in file:
+                data = line.strip().split(",")
+                if data[0] == username:  # Match username
+                    return {
+                        "name": data[0],
+                        "email": data[1] if len(data) > 1 else "",
+                        "contact": data[2] if len(data) > 2 else "",
+                        "address": data[3] if len(data) > 3 else ""
+                    }
+        return {"name": "", "email": "", "contact": "", "address": ""}
     except FileNotFoundError:
         return {"name": "", "email": "", "contact": "", "address": ""}
 
-def save_profile(profile):
-    with open(PROFILE_FILE, "w") as file:
-        file.write(f"{profile['name']},{profile['email']},{profile['contact']},{profile['address']}")
+def save_profile(profile, username):
+    updated_lines = []
+    found = False
+    try:
+        with open(PROFILE_FILE, "r") as file:
+            lines = file.readlines()
+        
+        for line in lines:
+            data = line.strip().split(",")
+            if data[0] == username:
+                updated_lines.append(f"{profile['name']},{profile['email']},{profile['contact']},{profile['address']}\n")
+                found = True
+            else:
+                updated_lines.append(line)
+
+        if not found:
+            updated_lines.append(f"{profile['name']},{profile['email']},{profile['contact']},{profile['address']}\n")
+
+        with open(PROFILE_FILE, "w") as file:
+            file.writelines(updated_lines)
+    except FileNotFoundError:
+        with open(PROFILE_FILE, "w") as file:
+            file.write(f"{profile['name']},{profile['email']},{profile['contact']},{profile['address']}\n")
+
+
 
 @app.route("/")
 def home():
@@ -99,6 +125,11 @@ def cakes():
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    username = session["username"]
+
     if request.method == "POST":
         updated_profile = {
             "name": request.form["name"],
@@ -106,8 +137,9 @@ def profile():
             "contact": request.form["contact"],
             "address": request.form["address"]
         }
-        save_profile(updated_profile)
-    profile_data = load_profile()
+        save_profile(updated_profile, username)
+
+    profile_data = load_profile(username)
     return render_template("profile.html", profile=profile_data)
 
 @app.route("/logout")

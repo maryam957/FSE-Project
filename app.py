@@ -79,7 +79,6 @@ def save_profile(profile, username):
             file.write(f"{profile['name']},{profile['email']},{profile['contact']},{profile['address']}\n")
 
 
-
 @app.route("/")
 def home():
     if "username" in session:
@@ -160,7 +159,9 @@ def cake_details(cake_name):
 def about():
     return render_template("about.html")
 
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
-

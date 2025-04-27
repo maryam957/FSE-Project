@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Dulce Cake Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/dulcelogo.png') }}" alt="Dulce Cake Shop" width="55" height="56">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contact Us Section -->
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <div class="contact-info">
+            <div class="contact-details">
+                <h2>Get in Touch</h2>
+                <p>If you have any questions or inquiries, feel free to reach out to us! We're always here to help you with your cake orders or any information you may need.</p>
+                <p>Email: <a href="mailto:info@dulcecakeshop.com">info@dulcecakeshop.com</a></p>
+                <p>Phone: +92 000-0000000 </p>
+                <p>Address: I8 markaz Islamabad, shop 00/0 plot 00 </p>
+            </div>
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <form action="#" method="POST">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Your Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Dulce Cake Shop. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

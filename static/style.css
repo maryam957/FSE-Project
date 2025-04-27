@@ -292,3 +292,53 @@ select, .custom-message {
     background: #f4d7a4;
 }
 
+/* About & Contact Page Styles */
+.about-contact-container {
+    background-color: #f6ebcd;
+    padding: 40px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+    .about-contact-container h1 {
+        font-family: 'Dancing Script', cursive;
+        color: #5a3e2b;
+        font-size: 36px;
+    }
+
+.content {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+    .content .image img {
+        width: 350px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .content .text {
+        max-width: 600px;
+        font-size: 18px;
+        color: #5a3e2b;
+        text-align: left;
+    }
+
+        .content .text p {
+            line-height: 1.8;
+        }
+
+        .content .text a {
+            text-decoration: none;
+            color: #5a3e2b;
+            font-weight: bold;
+        }
+
+            .content .text a:hover {
+                text-decoration: underline;
+            }

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cake Shop</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
 
+<body>
     <!-- Navigation Header -->
     <header>
         <div class="nav-container">
             <div class="logo">
                 <img src="{{ url_for('static', filename='images/dulcelogo.png') }}" alt="Dulce Cake Shop" width="55" height="56">
             </div>
-
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="{{ url_for('cakes') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
                     <li><a href="{{ url_for('login') }}">Login</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
                 </ul>
             </nav>
 
@@ -129,11 +129,11 @@
                 const cartItem = document.createElement("div");
                 cartItem.classList.add("cart-item");
                 cartItem.innerHTML = `
-                    <h4>${item.name}</h4>
-                    <p>Quantity: ${item.quantity}</p>
-                    <p>Price: $${(item.price * item.quantity).toFixed(2)}</p>
-                    <hr>
-                `;
+                        <h4>${item.name}</h4>
+                        <p>Quantity: ${item.quantity}</p>
+                        <p>Price: $${(item.price * item.quantity).toFixed(2)}</p>
+                        <hr>
+                    `;
                 cartItemsContainer.appendChild(cartItem);
             });
         }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Dulce Cake Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/dulcelogo.png') }}" alt="Dulce Cake Shop" width="55" height="56">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About Us Section -->
+    <div class="about-container">
+        <div class="about-content">
+            <h1>About Dulce Cake Shop</h1>
+            <p>Welcome to Dulce Cake Shop, where we create delicious and beautiful cakes for every occasion. Our cakes are made with the finest ingredients, ensuring quality and flavor in every bite. Whether you're celebrating a birthday, wedding, or just indulging in a sweet treat, we're here to make your day a little sweeter!</p>
+            <img src="{{ url_for('static', filename='images/cake-about.jpg') }}" alt="Delicious Cake" class="about-image">
+            <p>Our mission is to provide the best cakes in town, with an emphasis on creativity, flavor, and a personal touch. We believe that every cake should not only taste amazing but also look stunning. That's why our skilled bakers and designers work hard to create visually striking cakes that are perfect for any occasion.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Dulce Cake Shop. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

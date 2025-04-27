@@ -90,6 +90,14 @@ body {
 }
 
 /* Navigation Bar */
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+.left-section .logo img {
+        margin-right: 10px; /* some spacing between logo and link */
+    }
 .nav-container {
     display: flex;
     justify-content: space-between;
@@ -224,6 +232,49 @@ select, .custom-message {
     align-items: center;
     gap: 5px;
     margin-top: 10px;
+}
+/* Cart Icon */
+.cart-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Cart Side Panel */
+.cart-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 350px;
+    height: 100%;
+    background: #5a3e2b;
+    box-shadow: -3px 0 6px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.cart-items {
+    margin-top: 20px;
+}
+
+.cart-item {
+    margin-bottom: 15px;
 }
 
 .qty-btn {

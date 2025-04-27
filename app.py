@@ -156,5 +156,11 @@ def cake_details(cake_name):
     cake["description"] = "Our delicious " + cake["name"].lower() + " is made with the finest ingredients, perfect for any occasion!"
     return render_template("cake_details.html", cake=cake)
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+

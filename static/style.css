@@ -342,3 +342,91 @@ select, .custom-message {
             .content .text a:hover {
                 text-decoration: underline;
             }
+/* --- Checkout and Confirmation Pages --- */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f6ebcd;
+    color: #5a3e2b;
+    margin: 0;
+    padding: 0 20px;
+}
+
+h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 22px;
+    margin-top: 20px;
+    border-bottom: 2px solid #5a3e2b;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+    ul li {
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #fff5e1;
+        border: 1px solid #e0c9a6;
+        border-radius: 8px;
+    }
+
+form {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #e0c9a6;
+    border-radius: 10px;
+    max-width: 400px;
+}
+
+    form label {
+        display: block;
+        margin: 10px 0 5px;
+    }
+
+    form input[type="radio"] {
+        margin-right: 8px;
+    }
+
+button {
+    background-color: #5a3e2b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover {
+        background-color: #3e291a;
+    }
+
+p, li {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Confirmation page specific */
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #5a3e2b;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }

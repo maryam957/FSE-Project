@@ -165,3 +165,33 @@ def contact():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+    from flask import jsonify
+
+@app.route("/checkout", methods=["GET", "POST"])
+def checkout():
+    if "username" not in session:
+        return redirect(url_for("login"))
+    
+    username = session["username"]
+    cart = session.get("cart", [])
+    profile_data = load_profile(username)
+
+    total = sum(item["price"] * item["quantity"] for item in cart)
+    
+    return render_template("checkout.html", cart=cart, total=total, profile=profile_data)
+
+@app.route("/confirm_order", methods=["POST"])
+def confirm_order():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    # Normally, you'd process payment here
+    session["cart"] = []  # Clear cart
+    return render_template("confirmation.html", message="Payment successful! Your order has been placed.")
+@app.route("/save_cart", methods=["POST"])
+def save_cart():
+    cart_data = request.get_json()
+    session["cart"] = cart_data
+    return jsonify({"message": "Cart saved."})
+

@@ -137,6 +137,35 @@
                 cartItemsContainer.appendChild(cartItem);
             });
         }
+        // Store cart in session via API
+        function saveCartToSession() {
+            fetch("/save_cart", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(cart)
+            });
+        }
+
+        // Update cart panel and sync session
+        function updateCartPanel() {
+            const cartItemsContainer = document.getElementById("cartItems");
+            cartItemsContainer.innerHTML = "";
+
+            cart.forEach((item) => {
+                const cartItem = document.createElement("div");
+                cartItem.classList.add("cart-item");
+                cartItem.innerHTML = `
+            <h4>${item.name}</h4>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price: $${(item.price * item.quantity).toFixed(2)}</p>
+            <hr>
+        `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            saveCartToSession();  // Save cart server-side
+        }
+
     </script>
 
 </body>

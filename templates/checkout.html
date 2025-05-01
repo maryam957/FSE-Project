@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Checkout</h2>
+    <h3>Delivery Information</h3>
+    <p><strong>Name:</strong> {{ profile.name }}</p>
+    <p><strong>Address:</strong> {{ profile.address }}</p>
+    <p><strong>Email:</strong> {{ profile.email }}</p>
+
+    <h3>Cart Summary</h3>
+    <ul>
+        {% for item in cart %}
+        <li>{{ item.name }} - Qty: {{ item.quantity }} - ${{ "%.2f"|format(item.price * item.quantity) }}</li>
+        {% endfor %}
+    </ul>
+    <p><strong>Total:</strong> ${{ "%.2f"|format(total) }}</p>
+
+    <form action="{{ url_for('confirm_order') }}" method="post">
+        <h3>Payment</h3>
+        <label><input type="radio" name="payment_method" value="card" checked> Credit/Debit Card</label><br>
+        <label><input type="radio" name="payment_method" value="cash"> Cash on Delivery</label><br><br>
+        <button type="submit">Confirm and Pay</button>
+    </form>
+</body>
+</html>

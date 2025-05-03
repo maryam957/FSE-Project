@@ -457,3 +457,14 @@ a {
 .cart-panel {
     color: white; /* Ensures all text inside the cart panel is white */
 }
+.icons img {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.icons {
+    display: flex;
+    align-items: center;
+}
+

@@ -171,3 +171,17 @@ def confirm_order():
 
 if __name__ == "__main__":
     app.run(debug=True)
+@app.route('/feedback')
+def feedback():
+
+    if request.method == "POST":
+        order_id = request.form["order_id"]
+        rating = request.form["rating"]
+        comments = request.form["comments"]
+        # Save feedback to a file or database if needed
+        return render_template("thank_you.html", rating=rating)
+    return render_template("feedback.html")
+
+@app.route("/thank_you")
+def thank_you():
+    return render_template("thank_you.html")

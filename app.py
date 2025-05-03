@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import os
-
+import random
+import string
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
@@ -22,15 +23,20 @@ def save_credentials(role, username, password):
         file.write(f"{username},{password}\n")
 
 def check_credentials(role, username, password):
+    """Check if the username and password exist in the respective file"""
     filename = f"{role.lower()}_credentials.txt"
     if not os.path.exists(filename):
-        return False
+        return False  # If file doesn't exist, no users are registered yet
+
     with open(filename, "r") as file:
         for line in file:
-            saved_user, saved_pass = line.strip().split(",")
-            if saved_user == username and saved_pass == password:
-                return True
+            parts = line.strip().split(",")
+            if len(parts) == 2:  # Ensure the line has exactly two parts
+                saved_user, saved_pass = parts
+                if saved_user == username and saved_pass == password:
+                    return True
     return False
+
 
 def load_profile(username):
     try:
@@ -167,21 +173,26 @@ def confirm_order():
     if "username" not in session:
         return redirect(url_for("login"))
     session["cart"] = []
-    return render_template("confirmation.html", message="Payment successful! Your order has been placed.")
-
-if __name__ == "__main__":
-    app.run(debug=True)
-@app.route('/feedback')
+    # Generate a random tracking ID
+    tracking_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+    message = f"Payment successful! Your order has been placed. Your tracking ID is {tracking_id}."
+    return render_template("confirmation.html", message=message)
+@app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
-
     if request.method == "POST":
         order_id = request.form["order_id"]
         rating = request.form["rating"]
         comments = request.form["comments"]
-        # Save feedback to a file or database if needed
-        return render_template("thank_you.html", rating=rating)
+        # Save feedback logic here if needed
+        flash("Thank you for your feedback!")
+        return redirect(url_for("feedback"))
     return render_template("feedback.html")
-
 @app.route("/thank_you")
 def thank_you():
     return render_template("thank_you.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+

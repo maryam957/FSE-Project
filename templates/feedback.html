@@ -5,8 +5,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3e5ab;
+            background-color: #f6ebcd;
             padding: 20px;
+        }
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            color: #8b5e3c;
         }
 
         .feedback-container {
@@ -57,8 +62,9 @@
     {% endif %}
     {% endwith %}
 
-    <div class="feedback-container">
+    
         <h2>Give Feedback</h2>
+    <div class="feedback-container">
         <form method="POST">
             <label for="order_id">Order ID:</label>
             <input type="text" name="order_id" required>

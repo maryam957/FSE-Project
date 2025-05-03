@@ -39,6 +39,8 @@
             <span class="close-btn" onclick="closeCartPanel()">×</span>
         </div>
         <div id="cartItems" class="cart-items"></div>
+        <a href="{{ url_for('checkout') }}"><button style="margin: 10px;">Proceed to Checkout</button></a>
+
     </div>
 
     <div class="cake-details-container">
@@ -143,17 +145,25 @@ document.addEventListener("DOMContentLoaded", function() {
             const cartItem = document.createElement("div");
             cartItem.classList.add("cart-item");
             cartItem.innerHTML = `
-                <h4>${item.name}</h4>
-                <p>Weight: ${item.weight}</p>
-                <p>Toppings: ${item.toppings}</p>
-                <p>Message: ${item.message}</p>
-                <p>Quantity: ${item.quantity}</p>
-                <p>Price: $${(item.price * item.quantity).toFixed(2)}</p>
-                <hr>
-            `;
+            <h4>${item.name}</h4>
+            <p>Weight: ${item.weight}</p>
+            <p>Toppings: ${item.toppings}</p>
+            <p>Message: ${item.message}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price: $${(item.price * item.quantity).toFixed(2)}</p>
+            <hr>
+        `;
             cartItemsContainer.appendChild(cartItem);
         });
+
+        // Optional: send cart to server if required
+        fetch("/save_cart", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(cart)
+        });
     }
+
 
     // Cart Icon Click Opens Cart
     const cartIcon = document.getElementById("cartIcon");

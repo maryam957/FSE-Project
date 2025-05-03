@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cake Shop</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
-    <!-- Navigation Header -->
     <header>
         <div class="nav-container">
             <div class="logo">
@@ -19,43 +15,35 @@
                 <ul>
                     <li><a href="{{ url_for('cakes') }}">Home</a></li>
                     <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 </ul>
             </nav>
-
             <div class="icons">
-                <a href="{{ url_for('profile') }}">
-                    <img src="{{ url_for('static', filename='images/user-icon.png') }}" alt="User" width="25" height="25">
-                </a>
-                <a href="#" id="cartIcon">
-                    <img src="{{ url_for('static', filename='images/cart-icon.png') }}" alt="Cart" width="25" height="25">
-                </a>
+                <a href="{{ url_for('profile') }}"><img src="{{ url_for('static', filename='images/user-icon.png') }}" width="25"></a>
+                <a href="#" id="cartIcon"><img src="{{ url_for('static', filename='images/cart-icon.png') }}" width="25"></a>
             </div>
         </div>
     </header>
 
-    <!-- Cart Side Panel -->
+    <!-- Cart Panel -->
     <div id="cartPanel" class="cart-panel">
         <div class="cart-header">
             <h2>Your Cart</h2>
             <span class="close-btn" onclick="closeCartPanel()">×</span>
         </div>
         <div id="cartItems" class="cart-items"></div>
+        <a href="{{ url_for('checkout') }}"><button style="margin: 10px;">Proceed to Checkout</button></a>
     </div>
 
-    <!-- Cakes Display Section -->
+    <!-- Cakes -->
     <div class="cakes-container">
         {% for cake in cakes %}
         <div class="cake-card" data-name="{{ cake.name }}" data-price="{{ cake.price }}">
             <a href="{{ url_for('cake_details', cake_name=cake.name.replace(' ', '-')) }}">
                 <img src="{{ url_for('static', filename='images/' + cake.image) }}" alt="{{ cake.name }}">
             </a>
-            <h3>
-                <a href="{{ url_for('cake_details', cake_name=cake.name.replace(' ', '-')) }}">
-                    {{ cake.name }}
-                </a>
-            </h3>
+            <h3>{{ cake.name }}</h3>
             <p>${{ "{:.2f}".format(cake.price) }}</p>
             <div class="quantity-selector">
                 <button class="qty-btn">-</button>
@@ -68,10 +56,8 @@
     </div>
 
     <script>
-        // Cart Array
         let cart = [];
 
-        // Handle quantity buttons per card
         document.querySelectorAll('.cake-card').forEach(card => {
             const qtyInput = card.querySelector('.qty-input');
             const qtyBtns = card.querySelectorAll('.qty-btn');
@@ -79,34 +65,27 @@
             qtyBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     let currentQty = parseInt(qtyInput.value);
-                    if (btn.textContent === '+' && currentQty < 10) {
-                        qtyInput.value = currentQty + 1;
-                    } else if (btn.textContent === '-' && currentQty > 1) {
-                        qtyInput.value = currentQty - 1;
-                    }
+                    if (btn.textContent === '+' && currentQty < 10) qtyInput.value = currentQty + 1;
+                    if (btn.textContent === '-' && currentQty > 1) qtyInput.value = currentQty - 1;
                 });
             });
 
-            // Handle Add to Cart
-            const addToCartBtn = card.querySelector('.add-to-cart');
-            addToCartBtn.addEventListener('click', () => {
+            card.querySelector('.add-to-cart').addEventListener('click', () => {
                 const name = card.getAttribute('data-name');
                 const price = parseFloat(card.getAttribute('data-price'));
                 const quantity = parseInt(qtyInput.value);
-
-                const item = {
-                    name: name,
-                    price: price,
-                    quantity: quantity
-                };
-
+                const item = { name, price, quantity };
                 cart.push(item);
                 updateCartPanel();
                 openCartPanel();
             });
         });
 
-        // Open/Close Cart Panel
+        document.getElementById('cartIcon').addEventListener('click', e => {
+            e.preventDefault();
+            openCartPanel();
+        });
+
         function openCartPanel() {
             document.getElementById("cartPanel").style.right = "0";
         }
@@ -115,59 +94,25 @@
             document.getElementById("cartPanel").style.right = "-400px";
         }
 
-        // Clicking on Cart Icon opens the cart
-        document.getElementById('cartIcon').addEventListener('click', (e) => {
-            e.preventDefault();
-            openCartPanel();
-        });
-
         function updateCartPanel() {
-            const cartItemsContainer = document.getElementById("cartItems");
-            cartItemsContainer.innerHTML = "";
-
-            cart.forEach((item) => {
-                const cartItem = document.createElement("div");
-                cartItem.classList.add("cart-item");
-                cartItem.innerHTML = `
-                        <h4>${item.name}</h4>
-                        <p>Quantity: ${item.quantity}</p>
-                        <p>Price: $${(item.price * item.quantity).toFixed(2)}</p>
-                        <hr>
-                    `;
-                cartItemsContainer.appendChild(cartItem);
+            const container = document.getElementById("cartItems");
+            container.innerHTML = "";
+            cart.forEach(item => {
+                const div = document.createElement("div");
+                div.classList.add("cart-item");
+                div.innerHTML = `
+                <h4>${item.name}</h4>
+                <p>Quantity: ${item.quantity}</p>
+                <p>Price: $${(item.price * item.quantity).toFixed(2)}</p><hr>`;
+                container.appendChild(div);
             });
-        }
-        // Store cart in session via API
-        function saveCartToSession() {
             fetch("/save_cart", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(cart)
             });
         }
-
-        // Update cart panel and sync session
-        function updateCartPanel() {
-            const cartItemsContainer = document.getElementById("cartItems");
-            cartItemsContainer.innerHTML = "";
-
-            cart.forEach((item) => {
-                const cartItem = document.createElement("div");
-                cartItem.classList.add("cart-item");
-                cartItem.innerHTML = `
-            <h4>${item.name}</h4>
-            <p>Quantity: ${item.quantity}</p>
-            <p>Price: $${(item.price * item.quantity).toFixed(2)}</p>
-            <hr>
-        `;
-                cartItemsContainer.appendChild(cartItem);
-            });
-
-            saveCartToSession();  // Save cart server-side
-        }
-
     </script>
 
 </body>
-
 </html>

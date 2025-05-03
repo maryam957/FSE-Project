@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import os
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # Change this in production
+app.secret_key = "supersecretkey"
 
 PROFILE_FILE = "customer_credentials.txt"
 
@@ -17,33 +17,27 @@ cakes_list = [
 ]
 
 def save_credentials(role, username, password):
-    """Save user credentials in a text file based on role"""
     filename = f"{role.lower()}_credentials.txt"
     with open(filename, "a") as file:
         file.write(f"{username},{password}\n")
 
 def check_credentials(role, username, password):
-    """Check if the username and password exist in the respective file"""
     filename = f"{role.lower()}_credentials.txt"
-    
     if not os.path.exists(filename):
-        return False  # If file doesn't exist, no users are registered yet
-    
+        return False
     with open(filename, "r") as file:
-        credentials = file.readlines()
-        for cred in credentials:
-            saved_user, saved_pass = cred.strip().split(",")
+        for line in file:
+            saved_user, saved_pass = line.strip().split(",")
             if saved_user == username and saved_pass == password:
                 return True
     return False
-
 
 def load_profile(username):
     try:
         with open(PROFILE_FILE, "r") as file:
             for line in file:
                 data = line.strip().split(",")
-                if data[0] == username:  # Match username
+                if data[0] == username:
                     return {
                         "name": data[0],
                         "email": data[1] if len(data) > 1 else "",
@@ -60,7 +54,6 @@ def save_profile(profile, username):
     try:
         with open(PROFILE_FILE, "r") as file:
             lines = file.readlines()
-        
         for line in lines:
             data = line.strip().split(",")
             if data[0] == username:
@@ -68,16 +61,13 @@ def save_profile(profile, username):
                 found = True
             else:
                 updated_lines.append(line)
-
         if not found:
             updated_lines.append(f"{profile['name']},{profile['email']},{profile['contact']},{profile['address']}\n")
-
         with open(PROFILE_FILE, "w") as file:
             file.writelines(updated_lines)
     except FileNotFoundError:
         with open(PROFILE_FILE, "w") as file:
             file.write(f"{profile['name']},{profile['email']},{profile['contact']},{profile['address']}\n")
-
 
 @app.route("/")
 def home():
@@ -88,33 +78,35 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        role = request.form.get("role")  # Use .get() to avoid KeyError
+        role = request.form.get("role")
         username = request.form.get("username")
         password = request.form.get("password")
-
         if check_credentials(role, username, password):
             session["username"] = username
             session["role"] = role
             return redirect(url_for("cakes"))
         else:
             return "Invalid credentials! Try again."
-
     return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        role = request.form.get("role")  # Use .get() to avoid KeyError
+        role = request.form.get("role")
         username = request.form.get("username")
         password = request.form.get("password")
-
         if not role or not username or not password:
             return "All fields are required!"
-
         save_credentials(role, username, password)
         return redirect(url_for("login"))
-
     return render_template("register.html")
+
+@app.route("/logout")
+def logout():
+    session.pop("username", None)
+    session.pop("role", None)
+    session.pop("cart", None)
+    return redirect(url_for("login"))
 
 @app.route("/cakes")
 def cakes():
@@ -122,38 +114,29 @@ def cakes():
         return redirect(url_for("login"))
     return render_template("cakes.html", cakes=cakes_list)
 
-@app.route("/profile", methods=["GET", "POST"])
-def profile():
-    if "username" not in session:
-        return redirect(url_for("login"))
-
-    username = session["username"]
-
-    if request.method == "POST":
-        updated_profile = {
-            "name": request.form["name"],
-            "email": request.form["email"],
-            "contact": request.form["contact"],
-            "address": request.form["address"]
-        }
-        save_profile(updated_profile, username)
-
-    profile_data = load_profile(username)
-    return render_template("profile.html", profile=profile_data)
-
-@app.route("/logout")
-def logout():
-    session.pop("username", None)
-    session.pop("role", None)
-    return redirect(url_for("login"))
-
 @app.route("/cake/<cake_name>")
 def cake_details(cake_name):
     cake = next((c for c in cakes_list if c["name"] == cake_name.replace("-", " ")), None)
     if not cake:
         return "Cake not found", 404
-    cake["description"] = "Our delicious " + cake["name"].lower() + " is made with the finest ingredients, perfect for any occasion!"
+    cake["description"] = "Our delicious " + cake["name"].lower() + " is made with the finest ingredients!"
     return render_template("cake_details.html", cake=cake)
+
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    if "username" not in session:
+        return redirect(url_for("login"))
+    username = session["username"]
+    if request.method == "POST":
+        profile_data = {
+            "name": request.form["name"],
+            "email": request.form["email"],
+            "contact": request.form["contact"],
+            "address": request.form["address"]
+        }
+        save_profile(profile_data, username)
+    profile_data = load_profile(username)
+    return render_template("profile.html", profile=profile_data)
 
 @app.route("/about")
 def about():
@@ -163,35 +146,28 @@ def about():
 def contact():
     return render_template("contact.html")
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
-    from flask import jsonify
-
-@app.route("/checkout", methods=["GET", "POST"])
-def checkout():
-    if "username" not in session:
-        return redirect(url_for("login"))
-    
-    username = session["username"]
-    cart = session.get("cart", [])
-    profile_data = load_profile(username)
-
-    total = sum(item["price"] * item["quantity"] for item in cart)
-    
-    return render_template("checkout.html", cart=cart, total=total, profile=profile_data)
-
-@app.route("/confirm_order", methods=["POST"])
-def confirm_order():
-    if "username" not in session:
-        return redirect(url_for("login"))
-
-    # Normally, you'd process payment here
-    session["cart"] = []  # Clear cart
-    return render_template("confirmation.html", message="Payment successful! Your order has been placed.")
 @app.route("/save_cart", methods=["POST"])
 def save_cart():
     cart_data = request.get_json()
     session["cart"] = cart_data
     return jsonify({"message": "Cart saved."})
 
+@app.route("/checkout", methods=["GET", "POST"])
+def checkout():
+    if "username" not in session:
+        return redirect(url_for("login"))
+    username = session["username"]
+    cart = session.get("cart", [])
+    profile_data = load_profile(username)
+    total = sum(item["price"] * item["quantity"] for item in cart)
+    return render_template("checkout.html", cart=cart, total=total, profile=profile_data)
+
+@app.route("/confirm_order", methods=["POST"])
+def confirm_order():
+    if "username" not in session:
+        return redirect(url_for("login"))
+    session["cart"] = []
+    return render_template("confirmation.html", message="Payment successful! Your order has been placed.")
+
+if __name__ == "__main__":
+    app.run(debug=True)

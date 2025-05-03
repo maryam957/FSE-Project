@@ -430,3 +430,30 @@ a {
     a:hover {
         text-decoration: underline;
     }
+/* Cart Items Text Color */
+.cart-items {
+    color: white; /* Ensures the text in cart items is white */
+}
+
+.cart-item {
+    color: white; /* Ensures each cart item's text is white */
+}
+
+.cart-header {
+    color: white; /* Ensures the cart header text is white */
+}
+
+/* Close Button */
+.close-btn {
+    color: white; /* Ensures the close button text is white */
+}
+
+/* Quantity Buttons */
+.qty-btn {
+    color: white; /* Ensures the quantity buttons' text is white */
+}
+
+/* Other Cart Text */
+.cart-panel {
+    color: white; /* Ensures all text inside the cart panel is white */
+}
